@@ -43,7 +43,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable) // disables CSRF
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/register","/api/v1/auth/login").permitAll()  // allow public access to auth endpoints
+                        .requestMatchers("/api/v1/auth/register","/api/v1/auth/login","/api/v1/coach/**").permitAll()  // allow public access to auth and coach endpoints
                         .anyRequest().authenticated()                    // protect everything else
                 )
 //                .httpBasic(Customizer.withDefaults()) // Add Basic Authentication using username and password.

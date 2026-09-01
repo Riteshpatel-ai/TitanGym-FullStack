@@ -1,182 +1,98 @@
-# 🛍️ TitanGym Store
+# TitanGym — Gym-focused E-commerce Store
 
-## 📌 Overview
+![Coach AI screenshot](C:\Users\Rites\AppData\Roaming\Code\agentSessionData\3ebd5765-ee5a-4d06-a689-4590ab45fb10\attachments\59cdc569-878b-49bf-b5f0-3875eb14b033\Pasted Image.png)
 
-TitanGym is a gym-only e-commerce store with Coach AI support for product guidance and workout gear recommendations.
-
----
-
-## 🎯 Core Features
-
-- User Authentication (JWT)
-- Product Listing & Filtering
-- Product Categories
-- Cart Management
-- Checkout & Order Placement
-- Stripe Payment Gateway Integration
-- Responsive Frontend (React)
-- Secure Backend (Spring Boot)
-- Dockerized Microservices
-- CI/CD Pipeline
-- AWS Deployment
+TitanGym is a focused e-commerce storefront offering gym and fitness products, with an integrated Coach AI for catalog-aware product guidance. The project combines a React frontend and a Spring Boot backend and includes Razorpay test-mode payment integration for India.
 
 ---
 
-## 🛠 Tech Stack
+## Key Highlights
 
-### 🔙 Backend:
-- Java 17
-- Spring Boot
-- Spring Data JPA
-- PostgreSQL
-- Spring Security + JWT
-- Stripe SDK
-- Docker
-- Maven
-
-### 🔜 Frontend:
-- React.js
-- Axios
-- React Router
-- Tailwind CSS
-
-### 🚀 Deployment:
-- AWS EC2 / S3 / RDS
-- GitHub Actions for CI/CD
-- Docker Compose
+- India-first storefront: INR pricing and formatting throughout the UI
+- Coach AI: catalog-aware assistant (Groq integration with fallback)
+- Razorpay test-mode checkout (backend order creation + frontend modal)
+- Fullstack stack: React (frontend) + Spring Boot (backend) + PostgreSQL
+- Developer-friendly: can be run locally without Docker
 
 ---
 
-## ⚡️ Quick Start
+## Screenshots
 
-### 1. Clone the Repository
+Coach AI (chat assistant):
 
-```bash
-git clone https://github.com/Riteshpatel-ai/TitanGym.git
-cd fullstack-ecommerce
-```
+![Coach AI screenshot](C:\Users\Rites\AppData\Roaming\Code\agentSessionData\3ebd5765-ee5a-4d06-a689-4590ab45fb10\attachments\59cdc569-878b-49bf-b5f0-3875eb14b033\Pasted Image.png)
 
----
+Storefront (product grid):
 
-## 🖥️ Local Installation
+![Storefront screenshot](C:\Users\Rites\AppData\Roaming\Code\agentSessionData\3ebd5765-ee5a-4d06-a689-4590ab45fb10\attachments\e3af269b-3b05-4083-a49e-7bc7f4a5413d\Pasted Image 2.png)
 
-### Backend Setup
-
-#### Prerequisites
-- Java 17+
-- Maven
-- PostgreSQL (or use Docker, see below)
-
-#### Environment Variables
-Copy the example file and fill in values:
-```bash
-cp backend/.env.example backend/.env
-```
-
-Main variables:
-- `SPRING_DATASOURCE_URL`
-- `SPRING_DATASOURCE_USERNAME`
-- `SPRING_DATASOURCE_PASSWORD`
-- `JWT_SECRET`
-- `STRIPE_SECRET_KEY`
-- `GROQ_API_KEY` (optional; enables Groq-backed Coach AI)
-- (others as required)
-
-#### Run Backend
-
-```bash
-cd backend
-mvn spring-boot:run
-```
+> Note: the images above reference the local attachment paths so they render in a local environment or VS Code preview. If you want them to display on GitHub, copy the two image files into the repo (e.g. `docs/images/`) and update these paths accordingly.
 
 ---
 
-### Frontend Setup
+## Quick start — Local (no Docker)
 
-#### Prerequisites
-- Node.js (v18+ recommended)
-- npm or yarn
-
-#### Environment Variables
-Copy the example file and fill in values:
-```bash
-cp frontend/.env.example frontend/.env
-```
-Main variables:
-- `REACT_APP_API_URL`
-- (others as required)
-
-#### Run Frontend
+1. Frontend
 
 ```bash
 cd frontend
 npm install
+# point frontend to local backend (default: http://localhost:8082)
 npm start
 ```
-App will run at `http://localhost:3000`.
 
----
+2. Backend
 
-## 🐳 Docker Setup (Recommended)
+Ensure PostgreSQL is available and create a DB (example: `ecommerce_db`). Then set environment variables and run:
 
-You can run the entire stack using Docker and Docker Compose:
-
-```bash
-docker-compose up --build
-```
-
-This will start frontend, backend, and the database containers. Update environment variables as needed in the respective `.env` files or in `docker-compose.yml`.
-
----
-
-## 🧪 Running Tests
-
-### Backend
-
-```bash
+```powershell
+$env:DB_URL='jdbc:postgresql://localhost:5432/ecommerce_db'
+$env:DB_USERNAME='postgres'
+$env:DB_PASSWORD='your_db_password'
+$env:JWT_SECRET='replace_with_secure_secret'
+# Optional: for Razorpay test flow
+$env:RAZORPAY_KEY_ID='rzp_test_TWh3DAkJq3jh7b'
+$env:RAZORPAY_KEY_SECRET='HmYRDfj132IrXmYJEw2eIpGU'
 cd backend
-mvn test
+mvn spring-boot:run
 ```
 
-### Frontend
+3. Checkout flow
 
-```bash
-cd frontend
-npm test
-```
+- Open the frontend at `http://localhost:3000` and place an order.
+- The frontend will call the backend order endpoint (`/api/v1/payment/create-order`) to create a Razorpay order, then open the Razorpay checkout modal using the `RAZORPAY_KEY_ID` from the server response.
 
 ---
 
-## ☁️ Deployment
+## Environment variables
 
-The project is ready to deploy on AWS using EC2, S3 (for static assets), and RDS (for the database). Docker images can be pushed to ECR for production. CI/CD is set up with GitHub Actions.
+Backend (important):
 
----
+- DB_URL — JDBC URL for PostgreSQL
+- DB_USERNAME
+- DB_PASSWORD
+- JWT_SECRET
+- RAZORPAY_KEY_ID (optional, for test checkout)
+- RAZORPAY_KEY_SECRET (optional, for test checkout)
+- GROQ_API_KEY (optional for Coach AI)
 
-## 🗂️ Project Structure
+Frontend (important):
 
-```
-fullstack-ecommerce/
-├── backend/         # Spring Boot application
-├── frontend/        # React application
-├── docker-compose.yml
-└── README.md
-```
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please open issues or submit pull requests for features, fixes, or improvements.
-
-1. Fork this repo
-2. Create your branch (`git checkout -b feature/your-feature`)
-3. Commit your changes (`git commit -am 'Add a new feature'`)
-4. Push to the branch (`git push origin feature/your-feature`)
-5. Create a new Pull Request
+- REACT_APP_API_URL — base URL for backend API (default `http://localhost:8082`)
 
 ---
 
-## 📬 Contact
+## Notes & next steps
 
-For any questions or support, open an issue or contact [Ritesh Patel](https://github.com/Riteshpatel-ai).
+- The repository currently includes a working Razorpay integration in test mode. Do not commit secret keys — set them as environment variables when starting the backend.
+- To make screenshots visible on GitHub, copy the two attached screenshot files into the repository under `docs/images/` and update the image links in this README accordingly.
+
+---
+
+## Contributing
+
+Contributions, issues and feature requests are welcome. Please follow standard fork-and-pull-request workflow.
+
+---
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>

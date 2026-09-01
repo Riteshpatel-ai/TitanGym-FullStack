@@ -18,6 +18,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Service
 public class ProductService {
@@ -68,15 +70,18 @@ public class ProductService {
         List<ProductEntity> pageContent = totalItems == 0
                 ? new ArrayList<>()
                 : filteredProducts.subList(fromIndex, toIndex);
-        List<ProductResponseDTO> productResponseDTO = pageContent.stream().map(productMapper::mapToDTO).toList();
+        List<ProductResponseDTO> productResponseDTO = pageContent.stream()
+                        .map(productMapper::mapToDTO)
+                        .peek(dto -> dto.setPrice(convertToINR(dto.getPrice())))
+                        .toList();
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("products", productResponseDTO);
-        response.put("currentPage", currentPage);
-        response.put("totalItems", totalItems);
-        response.put("totalPages", totalPages);
+                Map<String, Object> response = new HashMap<>();
+                response.put("products", productResponseDTO);
+                response.put("currentPage", currentPage);
+                response.put("totalItems", totalItems);
+                response.put("totalPages", totalPages);
 
-        return response;
+                return response;
     }
 
     /**
@@ -130,7 +135,19 @@ public class ProductService {
         if (!GymCatalogPolicy.isGymRelevant(existing)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
         }
-        return productMapper.mapToDTO(existing);
-    }
+            ProductResponseDTO dto = productMapper.mapToDTO(existing);
+            dto.setPrice(convertToINR(dto.getPrice()));
+            return dto;
+        }
+
+        /**
+         * Convert a price to INR using a fixed exchange rate
+         */
+        private BigDecimal convertToINR(BigDecimal amount) {
+            if (amount == null) return null;
+            // Fixed exchange rate: 1 USD = 83 INR
+            BigDecimal rate = BigDecimal.valueOf(83);
+            return amount.multiply(rate).setScale(2, RoundingMode.HALF_UP);
+        }
 
 }

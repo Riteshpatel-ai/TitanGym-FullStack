@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "../api/axios";
 import Spinner from "../components/Spinner";
 import AddToCartControls from "../components/Cart/AddToCartControls";
+import { formatINR } from "../currency";
 
 function ProductDetailPage() {
 
@@ -39,7 +40,7 @@ function ProductDetailPage() {
         "t ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut " +
         "aliquip ex ea commodo consequat.";
     const img = product.imageUrl || "https://images.unsplash.com/photo-1599481238640-4c1288750d7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2664&q=80";
-    const price = product.price || "$99.99";
+    const price = product.price || null;
 
   return (
 
@@ -70,7 +71,7 @@ function ProductDetailPage() {
                       bg-blue-500 rounded-full mx-auto lg:mx-0"/>
                       <div className="flex items-center justify-between gap-4 mt-4">
                             <span className="title-font font-medium text-2xl text-gray-900 dark:text-white">
-                                ${price}
+                                {formatINR(price)}
                             </span>
                           <div>
                           <AddToCartControls id={product.id}/>

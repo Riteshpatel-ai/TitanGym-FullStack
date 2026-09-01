@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 import Alert from "../components/Alert";
 import axios from "../api/axios";
+import { formatINR } from "../currency";
 
 function CheckOut() {
     const { cartItems, subTotal } = useCart();
@@ -176,14 +177,14 @@ function CheckOut() {
                                 {cartItems.map((item) => (
                                     <li key={item.id} className="flex justify-between text-gray-700 dark:text-gray-300">
                                         <span>{item.product.name} (x{item.quantity})</span>
-                                        <span>${(item.product.price * item.quantity).toFixed(2)}</span>
+                                        <span>{formatINR(item.product.price * item.quantity)}</span>
                                     </li>
                                 ))}
                             </ul>
                             <div className="mt-4 border-t pt-4">
                                 <div className="flex justify-between text-gray-800 dark:text-white font-semibold">
                                     <span>Total</span>
-                                    <span>${subTotal}</span>
+                                    <span>{formatINR(Number(subTotal))}</span>
                                 </div>
                             </div>
                         </>

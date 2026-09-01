@@ -1,4 +1,5 @@
 import {useCart} from "../../context/CartContext";
+import { formatINR } from "../../currency";
 
 function CartItemCard({item}) {
     const  { removeCartItem, updateCartItemQuantity} = useCart();
@@ -25,7 +26,7 @@ function CartItemCard({item}) {
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
                     {item.product.name}
                 </h2>
-                <p className="text-gray-600 dark:text-gray-400">${item.product.price}</p>
+                <p className="text-gray-600 dark:text-gray-400">{formatINR(item.product.price)}</p>
             </div>
 
             {/* Quantity Control */}

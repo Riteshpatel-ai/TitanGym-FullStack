@@ -1,6 +1,7 @@
 import CartItemCard from "./CartItemCard";
 import {useCart} from "../../context/CartContext";
 import {useNavigate} from "react-router-dom";
+import { formatINR } from "../../currency";
 
 function CartPopup({ onClose }) {
     const { cartItems, subTotal } = useCart();
@@ -38,7 +39,7 @@ function CartPopup({ onClose }) {
             <div className="mt-8 text-xl flex justify-between text-gray-800 border-t p-4 dark:text-white font-semibold">
                 <span>Total</span>
                 <span>
-                        ${subTotal}
+                        {formatINR(Number(subTotal))}
                     </span>
             </div>
 

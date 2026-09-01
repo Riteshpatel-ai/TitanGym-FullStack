@@ -1,5 +1,7 @@
 import {useNavigate} from "react-router-dom";
 
+import { formatINR } from "../../currency";
+
 function OrderSummary({ cartItems, subTotal }) {
     const navigate = useNavigate();
     return (
@@ -9,7 +11,7 @@ function OrderSummary({ cartItems, subTotal }) {
                 {cartItems.map((item) => (
                     <li key={item.id} className="flex justify-between text-gray-700 dark:text-gray-300">
                         <span>{item.product.name} (x{item.quantity})</span>
-                        <span>${(item.product.price * item.quantity).toFixed(2)}</span>
+                        <span>{formatINR(item.product.price * item.quantity)}</span>
                     </li>
                 ))}
             </ul>
@@ -17,10 +19,11 @@ function OrderSummary({ cartItems, subTotal }) {
                 <div className="flex justify-between text-gray-800 dark:text-white font-semibold">
                     <span>Total</span>
                     <span>
-                        ${subTotal}
+                        {formatINR(Number(subTotal))}
                     </span>
                 </div>
             </div>
+
             <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
                 onClick={() => navigate("/checkout")}
             >

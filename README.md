@@ -1,6 +1,6 @@
 # TitanGym — Gym-focused E-commerce Store
 
-![Coach AI screenshot](C:\Users\Rites\AppData\Roaming\Code\agentSessionData\3ebd5765-ee5a-4d06-a689-4590ab45fb10\attachments\59cdc569-878b-49bf-b5f0-3875eb14b033\Pasted Image.png)
+![Storefront screenshot](docs/images/screenshot1.png)
 
 TitanGym is a focused e-commerce storefront offering gym and fitness products, with an integrated Coach AI for catalog-aware product guidance. The project combines a React frontend and a Spring Boot backend and includes Razorpay test-mode payment integration for India.
 
@@ -20,11 +20,11 @@ TitanGym is a focused e-commerce storefront offering gym and fitness products, w
 
 Coach AI (chat assistant):
 
-![Coach AI screenshot](C:\Users\Rites\AppData\Roaming\Code\agentSessionData\3ebd5765-ee5a-4d06-a689-4590ab45fb10\attachments\59cdc569-878b-49bf-b5f0-3875eb14b033\Pasted Image.png)
+![Coach AI screenshot](docs/images/screenshot2.png)
 
 Storefront (product grid):
 
-![Storefront screenshot](C:\Users\Rites\AppData\Roaming\Code\agentSessionData\3ebd5765-ee5a-4d06-a689-4590ab45fb10\attachments\e3af269b-3b05-4083-a49e-7bc7f4a5413d\Pasted Image 2.png)
+![Storefront screenshot](docs/images/screenshot1.png)
 
 > Note: the images above reference the local attachment paths so they render in a local environment or VS Code preview. If you want them to display on GitHub, copy the two image files into the repo (e.g. `docs/images/`) and update these paths accordingly.
 

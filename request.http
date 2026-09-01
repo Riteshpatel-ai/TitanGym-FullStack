@@ -1,0 +1,124 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+###
+
+### GET request to findAll Product
+GET http://localhost:8082/api/v1/products
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaXBpNDUiLCJpYXQiOjE3NTA3MTMyOTcsImV4cCI6MTc1MDcxNjg5N30.Gt8JYTnNHCFB7JCj43goQCjnDRCc_uUayVPvZBuOzyU
+
+###
+
+POST http://18.222.238.25:8082/api/v1/products
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhMzIiLCJpYXQiOjE3NTMxMjQ3NzgsImV4cCI6MTc1MzEyODM3OH0.hEFFT5NGW0NJ8H6D7_thcfWFZc6p_zc-dHsyuI5iHlE
+Content-Type: application/json
+
+{
+  "name": "Nike Air Max White",
+  "description": "Step into comfort and style with the Nike Air Max White sneakers. Designed with breathable mesh, responsive cushioning, and a sleek silhouette, these shoes offer all-day support whether you're on a run or hitting the streets. The minimalist white finish pairs effortlessly with any outfit.",
+  "price": 129.99,
+  "imageUrl": "/assets/nike_shoe_white.jpg",
+  "category": "footwear",
+  "quantity": 40
+}
+
+
+
+
+
+
+###
+
+GET http://localhost:8082/api/v1/products/8
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoMjM0NTEiLCJpYXQiOjE3NDk3NTEyNDAsImV4cCI6MTc0OTc1NDg0MH0.rL48VTiir0p5RDtBL0Y2gZwc850Prn_Lv1o6-2wUA3s
+
+
+###
+PUT http://localhost:8082/api/v1/products/2
+Content-Type: application/json
+
+{
+  "name": "pizzaaa",
+  "description": "Now with RGB lighting",
+  "price": 24.99,
+  "imageUrl": "https://via.placeholder.com/150",
+  "category": "electronics",
+  "quantity": 8
+}
+
+###
+DELETE http://localhost:8082/api/v1/products/19
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaXBpNDUiLCJpYXQiOjE3NTA3MTM0OTcsImV4cCI6MTc1MDcxNzA5N30.rrSNqXT-EJEAtl5FKxXXT9E3Fr1TnM97SAruVo0HUuE
+
+
+### User
+
+## Register
+
+POST http://3.144.164.160:8082//api/v1/auth/register
+Content-Type: application/json
+
+
+{
+  "username": "a32",
+  "email": "bademail22@gmail.com",
+  "password": "123@patLe"
+}
+
+
+
+###Login
+
+POST http://3.14.88.36:8082//api/v1/auth/login
+Content-Type: application/json
+
+{
+"identifier": "a32",
+"password": "123@patLe"
+}
+
+###Cart
+GET http://localhost:8082/api/v1/cart
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaXBpNDUiLCJpYXQiOjE3NTA4NzM2OTgsImV4cCI6MTc1MDg3NzI5OH0.P-OZS-DpLV4H72GObgI30W1KvrkH9oKxpH46RbneXIU
+
+
+### Add item to cartqa
+POST http://localhost:8082/api/v1/cart/add
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaXBpNDUiLCJpYXQiOjE3NTA3MTEzNTMsImV4cCI6MTc1MDcxNDk1M30.WEKgfuVcihDagtAJNTBuZli0JF76of42P9dPOzk8iAE
+Content-Type: application/json
+
+{
+  "productId": 21,
+  "quantity": 9
+}
+
+
+### Delete item from cart
+DELETE http://localhost:8082/api/v1/cart/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoMjM0NTEiLCJpYXQiOjE3NDg5NzIzODgsImV4cCI6MTc0ODk3NTk4OH0.0nFR0FhoLp_ZZ5TE3dsdEHblqooGGkiO4bOzk495tGQ
+
+### Patch Qty from cart
+PATCH http://localhost:8082/api/v1/cart/8
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaXBpNDUiLCJpYXQiOjE3NTA4NzM2OTgsImV4cCI6MTc1MDg3NzI5OH0.P-OZS-DpLV4H72GObgI30W1KvrkH9oKxpH46RbneXIU
+Content-Type: application/json
+
+{
+  "quantity": 7
+}
+
+### Test /upload-image
+POST http://localhost:5000/api/v1/upload_image
+Content-Type: multipart/form-data
+
+--boundary
+Content-Disposition: form-data; name="image"; filename="nike_shoe_white.jpg"
+Content-Type: image/jpeg
+
+< ./frontend/public/assets/nike_shoe_white.jpg
+--boundary--
+
+
+
+
+

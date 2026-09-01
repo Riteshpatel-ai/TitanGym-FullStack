@@ -8,13 +8,13 @@ import com.titangym.ecommerce.repository.CartItemRepository;
 import com.titangym.ecommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -50,25 +50,31 @@ public class ProductService {
      * Get all products
      */
     public Map<String, Object> getAllProducts(int page, int size, String search) {
-        // Convert ProductEntity to ProductResponseDTO
-        Pageable pageable = PageRequest.of(page, size);
-        Page<ProductEntity> products;
-        if (search.isEmpty()) {
-            products = productRepository.findAll(pageable);
-        }
-        else {
-            products = productRepository.
-                    findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrCategoryContainingIgnoreCase(
-                            search, search, search, pageable);
-        }
+        int pageSize = size <= 0 ? 10 : size;
+        int requestedPage = Math.max(page, 0);
+        String query = search == null ? "" : search.trim();
 
+        List<ProductEntity> filteredProducts = productRepository.findAll().stream()
+                .filter(GymCatalogPolicy::isGymRelevant)
+                .filter(product -> GymCatalogPolicy.matchesSearch(product, query))
+                .sorted(Comparator.comparing(product -> product.getName().toLowerCase()))
+                .toList();
 
-        List<ProductResponseDTO> productResponseDTO =  products.getContent().stream().map(productMapper::mapToDTO).toList();
+        int totalItems = filteredProducts.size();
+        int totalPages = Math.max(1, (int) Math.ceil((double) totalItems / pageSize));
+        int currentPage = Math.min(requestedPage, totalPages - 1);
+        int fromIndex = Math.min(currentPage * pageSize, totalItems);
+        int toIndex = Math.min(fromIndex + pageSize, totalItems);
+        List<ProductEntity> pageContent = totalItems == 0
+                ? new ArrayList<>()
+                : filteredProducts.subList(fromIndex, toIndex);
+        List<ProductResponseDTO> productResponseDTO = pageContent.stream().map(productMapper::mapToDTO).toList();
+
         Map<String, Object> response = new HashMap<>();
         response.put("products", productResponseDTO);
-        response.put("currentPage", products.getNumber());
-        response.put("totalItems", products.getTotalElements());
-        response.put("totalPages", products.getTotalPages());
+        response.put("currentPage", currentPage);
+        response.put("totalItems", totalItems);
+        response.put("totalPages", totalPages);
 
         return response;
     }
@@ -121,6 +127,9 @@ public class ProductService {
         // Check if the product exists
         ProductEntity existing = productRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+        if (!GymCatalogPolicy.isGymRelevant(existing)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+        }
         return productMapper.mapToDTO(existing);
     }
 

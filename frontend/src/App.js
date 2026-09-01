@@ -22,6 +22,7 @@ function App() {
                     <CheckOut />
                 </PrivateRoute>
                 } />
+                <Route path="/coach-ai" element={<PrivateRoute><Home /></PrivateRoute>} />
 
                 {/* Product routes */}
                 <Route element={<Layout />}>
@@ -40,5 +41,4 @@ function App() {
     );
 }
 export default App;
-
 

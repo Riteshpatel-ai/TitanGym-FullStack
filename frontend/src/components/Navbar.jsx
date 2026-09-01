@@ -81,8 +81,8 @@ function Navbar() {
             {isCartOpen && (<CartPopup onClose={() => setIsCartOpen(false)} closeSvg={closeSvg}/>)}
             <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
                 {/* Logo */}
-                <Link to="/" className="text-3xl font-bold text-black dark:text-white">
-                    H<span className="text-blue-600">tag</span>
+                <Link to="/coach-ai" className="text-3xl font-bold text-black dark:text-white">
+                    Titan<span className="text-blue-600">Gym</span>
                 </Link>
 
                 {/* Right Section */}
@@ -96,6 +96,9 @@ function Navbar() {
                     <div className="hidden md:flex items-center gap-6">
                         <Link to="/products" className="text-gray-800 dark:text-white hover:text-blue-600 hover:dark:text-blue-400">
                             Products
+                        </Link>
+                        <Link to="/coach-ai" className="font-semibold text-lime-700 hover:text-lime-600 dark:text-lime-400 dark:hover:text-lime-300">
+                            Coach AI
                         </Link>
                         <button
                             onClick={toggleDarkMode}
@@ -130,6 +133,13 @@ function Navbar() {
                         >
                             {closeSvg}
                         </button>
+                        <Link
+                            to="/coach-ai"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="text-lg text-gray-800 dark:text-white hover:text-blue-600 hover:dark:text-blue-400"
+                        >
+                            Coach AI
+                        </Link>
                         <Link
                             to="/products"
                             onClick={() => setIsMobileMenuOpen(false)}

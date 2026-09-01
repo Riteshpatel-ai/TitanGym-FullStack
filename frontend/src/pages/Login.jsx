@@ -37,7 +37,7 @@ function Login() {
 
             // Redirect to products page
             setTimeout(() => {
-                navigate("/products");
+                navigate("/coach-ai");
             }, 1000);
         }
         catch (err) {

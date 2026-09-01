@@ -1,8 +1,8 @@
-# 🛍️ Full-Stack E-commerce Application
+# 🛍️ TitanGym Store
 
 ## 📌 Overview
 
-This project is a full-featured e-commerce website built using modern backend and frontend technologies. It supports core functionalities like product management, user authentication, cart and order management, secure payments, and more.
+TitanGym is a gym-only e-commerce store with Coach AI support for product guidance and workout gear recommendations.
 
 ---
 
@@ -79,6 +79,7 @@ Main variables:
 - `SPRING_DATASOURCE_PASSWORD`
 - `JWT_SECRET`
 - `STRIPE_SECRET_KEY`
+- `GROQ_API_KEY` (optional; enables Groq-backed Coach AI)
 - (others as required)
 
 #### Run Backend

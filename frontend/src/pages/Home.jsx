@@ -1,88 +1,56 @@
-import React from "react";
-
+import { Link } from "react-router-dom";
+import CoachChatPanel from "../components/CoachAI/CoachChatPanel";
 
 function Home() {
     return (
-        <main className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen py-10 px-4 md:px-12">
-            <div className="max-w-5xl mx-auto space-y-10">
-                {/* Header */}
-                <section className="text-center space-y-2">
-                    <h1 className="text-4xl font-bold">🛍️ Full-Stack E-commerce Application</h1>
-                    <p className="text-lg text-gray-600 dark:text-gray-400">
-                        Scalable and modern e-commerce platform with Spring Boot, React & AWS.
-                    </p>
-                </section>
+        <main className="min-h-screen bg-gradient-to-br from-lime-50 via-white to-slate-100 px-4 py-8 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-white">
+            <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.05fr_1fr]">
+                <section className="flex flex-col justify-center space-y-6 rounded-[2rem] border border-slate-200 bg-white/80 p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/80 lg:p-12">
+                    <div className="inline-flex w-fit rounded-full bg-lime-100 px-4 py-2 text-sm font-semibold tracking-[0.28em] text-lime-800 dark:bg-lime-400/10 dark:text-lime-300">
+                        POWERED BY GROQ
+                    </div>
+                    <div className="space-y-4">
+                        <h1 className="max-w-xl text-5xl font-black leading-[0.95] tracking-tight sm:text-6xl">
+                            Your personal gym gear coach.
+                        </h1>
+                        <p className="max-w-lg text-lg leading-8 text-slate-600 dark:text-slate-300">
+                            TitanGym is a gym-only store for strength, recovery, nutrition, and everyday
+                            training essentials — with Coach AI to help you choose the right gear fast.
+                        </p>
+                    </div>
 
-                {/* Overview */}
-                <section>
-                    <h2 className="text-2xl font-semibold mb-3">📌 Overview</h2>
-                    <p>
-                        A full-featured e-commerce website supporting product browsing, secure checkout,
-                        user authentication, payment integration, and cloud deployment.
-                    </p>
-                </section>
+                    <div className="flex flex-wrap gap-3">
+                        <Link
+                            to="/products"
+                            className="rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 dark:bg-lime-400 dark:text-slate-900 dark:hover:bg-lime-300"
+                        >
+                            Shop gym products
+                        </Link>
+                        <Link
+                            to="/coach-ai"
+                            className="rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-800 transition hover:border-lime-400 hover:text-lime-700 dark:border-slate-700 dark:text-slate-200 dark:hover:text-lime-300"
+                        >
+                            Ask Coach AI
+                        </Link>
+                    </div>
 
-                {/* Features */}
-                <section>
-                    <h2 className="text-2xl font-semibold mb-3">🎯 Core Features</h2>
-                    <ul className="list-disc list-inside space-y-1">
-                        <li>JWT-based User Authentication</li>
-                        <li>Product Listing & Filtering</li>
-                        <li>Shopping Cart & Checkout</li>
-                        <li>Stripe Payment Gateway</li>
-                        <li>Responsive React UI</li>
-                        <li>Spring Boot REST API</li>
-                        <li>Dockerized Microservices</li>
-                        <li>AWS Deployment with CI/CD</li>
-                    </ul>
-                </section>
-
-                {/* Tech Stack */}
-                <section>
-                    <h2 className="text-2xl font-semibold mb-3">🛠 Tech Stack</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div>
-                            <h3 className="font-medium mb-1">🔙 Backend</h3>
-                            <ul className="text-sm list-disc list-inside">
-                                <li>Java 17 + Spring Boot</li>
-                                <li>PostgreSQL + JPA</li>
-                                <li>Spring Security + JWT</li>
-                                <li>Stripe SDK</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 className="font-medium mb-1">🔜 Frontend</h3>
-                            <ul className="text-sm list-disc list-inside">
-                                <li>React.js + Axios</li>
-                                <li>React Router</li>
-                                <li>Tailwind CSS</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 className="font-medium mb-1">🚀 Deployment</h3>
-                            <ul className="text-sm list-disc list-inside">
-                                <li>AWS EC2, S3, RDS</li>
-                                <li>GitHub Actions</li>
-                                <li>Docker + Compose</li>
-                            </ul>
-                        </div>
+                    <div className="grid gap-3 sm:grid-cols-3">
+                        {[
+                            "Strength essentials",
+                            "Recovery must-haves",
+                            "Nutrition picks",
+                        ].map((item) => (
+                            <div
+                                key={item}
+                                className="rounded-2xl border border-lime-200 bg-lime-50 px-4 py-4 text-sm font-semibold text-lime-900 dark:border-lime-400/20 dark:bg-lime-400/10 dark:text-lime-100"
+                            >
+                                {item}
+                            </div>
+                        ))}
                     </div>
                 </section>
 
-                {/* Quick Start */}
-                <section>
-                    <h2 className="text-2xl font-semibold mb-3">⚡ Quick Start</h2>
-                    <p className="text-sm mb-2">Clone the repository:</p>
-                    <pre className="bg-gray-100 dark:bg-gray-800 p-3 rounded text-sm overflow-x-auto">
-            git clone https://github.com/Riteshpatel-ai/TitanGym.git
-          </pre>
-                </section>
-
-                {/* Contact */}
-                <section>
-                    <h2 className="text-2xl font-semibold mb-3">📬 Contact</h2>
-                    <p className="text-sm">For issues or contributions, open a GitHub issue or contact <span className="font-medium">Ritesh Patel</span>.</p>
-                </section>
+                <CoachChatPanel />
             </div>
         </main>
     );
